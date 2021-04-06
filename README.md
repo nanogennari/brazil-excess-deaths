@@ -6,6 +6,10 @@
 
 During a pandemic is hard to get the dimension of the impact in a population, data can be scarce and official statistics can be lower than the real values due to under reporting. In this case a reliable indicator of the impact of the disease in a population can be the excess deaths in that population.
 
+## Companion Article
+
+This analysis has a companion article publised on Medium: https://nanogennari.medium.com/an-analysis-of-excess-deaths-in-brazil-during-the-covid-19-pandemic-7899c1650e88
+
 ## Used data
 
 * capyvara's scrape of the brasilian civil registry: https://github.com/capyvara/brazil-civil-registry-data
