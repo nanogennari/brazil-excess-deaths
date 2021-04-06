@@ -1,6 +1,6 @@
 # An analysis of excess deaths in Brazil during the COVID-19 pandemic
 
-![Brazil deaths](https://github.com/nanogennari/brazil-excess-deaths/blob/master/brazil_deaths.png?raw=true)
+![Brazil deaths](https://github.com/nanogennari/brazil-excess-deaths/blob/main/brazil_deaths.png?raw=true)
 
 ## Introduction
 
