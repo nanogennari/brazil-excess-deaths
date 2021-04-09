@@ -37,33 +37,28 @@ A correlation between the number of excess deaths and the confirmed COVID deaths
 
 The states with the biggest increase in excess deaths where:
 
-+----------------+---------+-----------------------+
-|     State      | P-score | Deaths above the mean |
-+----------------+---------+-----------------------+
-| Amazonas       | 236.71% |                18,709 |
-| Maranhão       | 166.07% |                20,388 |
-| Pará           | 129.57% |                21,635 |
-| Rio de Janeiro | 86.49%  |                89,240 |
-| Ceará          | 79.37%  |                28.095 |
-+----------------+---------+-----------------------+
+| State          | P-score | Deaths above the mean |
+|----------------|---------|-----------------------|
+| Amazonas       | 236.71% | 18,709                |
+| Maranhão       | 166.07% | 20,388                |
+| Pará           | 129.57% | 21,635                |
+| Rio de Janeiro | 86.49%  | 89,240                |
+| Ceará          | 79.37%  | 28.095                |
 
 The cities with biggest increase in excess deaths where (restrictions where applied, see the notebook):
 
-+-------------------------+---------+--------+
-|          City           | p-score | Deaths |
-+-------------------------+---------+--------+
-| Caxias-MA               |  268.34 |    788 |
-| Manaus-AM               |  221.13 |  14964 |
-| Benevides-PA            |  217.70 |    264 |
-| Viçosa do Ceará-CE      |  205.36 |    268 |
-| Itacoatiara-AM          |  205.34 |    369 |
-| Brejo Santo-CE          |  190.51 |    246 |
-| Colinas do Tocantins-TO |  185.41 |    200 |
-| Maricá-RJ               |  185.18 |   1237 |
-| Acopiara-CE             |  181.40 |    190 |
-| Arraial do Cabo-RJ      |  179.69 |    210 |
-+-------------------------+---------+--------+
-
+| City                    | P-score | Deaths above the mean |
+|-------------------------|---------|-----------------------|
+| Caxias-MA               | 268.34% |                   788 |
+| Manaus-AM               | 221.13% |                 14964 |
+| Benevides-PA            | 217.70% |                   264 |
+| Viçosa do Ceará-CE      | 205.36% |                   268 |
+| Itacoatiara-AM          | 205.34% |                   369 |
+| Brejo Santo-CE          | 190.51% |                   246 |
+| Colinas do Tocantins-TO | 185.41% |                   200 |
+| Maricá-RJ               | 185.18% |                  1237 |
+| Acopiara-CE             | 181.40% |                   190 |
+| Arraial do Cabo-RJ      | 179.69% |                   210 |
 ## Acknowledgments
 
 First and foremost, praises and thanks to capyvara for making the data necessary for this analysis available and easy to work with. Also thanks to the Our World in Data for making awesome data easy to get and to work on.
