@@ -19,6 +19,70 @@ def get_dates(row, start_col="start_date", end_col="end_date"):
                      index=["year", "month", "month_str"])
 
 
+def start_plot():
+    """Function to start a plot.
+    """
+    plt.figure(figsize=(8, 5))
+
+
+def end_plot(**kwargs):
+    """Function to finish a plot.
+
+    Args:
+        title (str): Title for the plot.
+        xlabel (str): X axis label.
+        ylabel (str): Y axis label.
+        log_y (bool): Uses logarithmic scale on the y axis.
+            Defaults to False.
+        xlim (tuple): Sets the plot's x limits.
+        ylim (tuple): Sets the plot's y limits.
+        zero_y (bool): Sets the lower y limit to zero.
+        legend (bool): Prints the legend. Defaults to False.
+        legend_args (dict): Keyword arguments for the plt.legend()
+            function.
+        tight_layout (bool): Sets tight layout to pad=0.5.
+            Defatlts to True.
+        filename (str): File name to save plot, if not given only
+            shows plot.
+    """
+    title = kwargs.get('title', None)
+    if title is not None:
+        plt.title(title)
+    xlabel = kwargs.get('xlabel', False)
+    if xlabel:
+        plt.xlabel(xlabel)
+    ylabel = kwargs.get('ylabel', False)
+    log_y = kwargs.get('log_y', False)
+    if log_y:
+        if ylabel:
+            ylabel = ylabel+" (log)"
+        plt.yscale("log")
+    if ylabel:
+        plt.ylabel(ylabel)
+    xlim = kwargs.get('xlim', None)
+    if xlim is not None:
+        plt.xlim(xlim)
+    ylim = kwargs.get('ylim', None)
+    if ylim is not None:
+        plt.ylim(ylim)
+    zero_y = kwargs.get('zero_y', False)
+    if zero_y:
+        ax = plt.gca()
+        plt.ylim((0, ax.get_ylim()[1]))
+    legend = kwargs.get('legend', False)
+    legend_args = kwargs.get('legend_args', {})
+    if legend or legend_args != {}:
+        plt.legend(**legend_args)
+    tight_layout = kwargs.get('tight_layout', True)
+    if tight_layout:
+        plt.tight_layout(pad=0.5)
+    filename = kwargs.get('filename', None)
+    if filename is not None:
+        plt.savefig(filename, bbox_inches='tight')
+    else:
+        plt.show()
+
+
 class excess_deaths:
     def __init__(self, df, start_date=start_date, mask=slice(None),
                  end_date=None):
@@ -72,68 +136,6 @@ class excess_deaths:
         if len(self.prev_sum.groupby("month").sum()) < 12:
             raise RuntimeError("Not enough data!")
 
-    def start_plot(self):
-        """Internal method to start a plot.
-        """
-        plt.figure(figsize=(8, 5))
-
-    def end_plot(self, **kwargs):
-        """Internal method to finish a plot.
-
-        Args:
-            title (str): Title for the plot.
-            xlabel (str): X axis label.
-            ylabel (str): Y axis label.
-            log_y (bool): Uses logarithmic scale on the y axis.
-                Defaults to False.
-            xlim (tuple): Sets the plot's x limits.
-            ylim (tuple): Sets the plot's y limits.
-            zero_y (bool): Sets the lower y limit to zero.
-            legend (bool): Prints the legend. Defaults to False.
-            legend_args (dict): Keyword arguments for the plt.legend()
-                function.
-            tight_layout (bool): Sets tight layout to pad=0.5.
-                Defatlts to True.
-            filename (str): File name to save plot, if not given only
-                shows plot.
-        """
-        title = kwargs.get('title', None)
-        if title is not None:
-            plt.title(title)
-        xlabel = kwargs.get('xlabel', False)
-        if xlabel:
-            plt.xlabel(xlabel)
-        ylabel = kwargs.get('ylabel', False)
-        log_y = kwargs.get('log_y', False)
-        if log_y:
-            if ylabel:
-                ylabel = ylabel+" (log)"
-            plt.yscale("log")
-        if ylabel:
-            plt.ylabel(ylabel)
-        xlim = kwargs.get('xlim', None)
-        if xlim is not None:
-            plt.xlim(xlim)
-        ylim = kwargs.get('ylim', None)
-        if ylim is not None:
-            plt.ylim(ylim)
-        zero_y = kwargs.get('zero_y', False)
-        if zero_y:
-            ax = plt.gca()
-            plt.ylim((0, ax.get_ylim()[1]))
-        legend = kwargs.get('legend', False)
-        legend_args = kwargs.get('legend_args', {})
-        if legend or legend_args != {}:
-            plt.legend(**legend_args)
-        tight_layout = kwargs.get('tight_layout', True)
-        if tight_layout:
-            plt.tight_layout(pad=0.5)
-        filename = kwargs.get('filename', None)
-        if filename is not None:
-            plt.savefig(filename, bbox_inches='tight')
-        else:
-            plt.show()
-
     def plot_deaths(self, **plt_args):
         """Plots the mean deaths curve and the deaths after start_date.
 
@@ -156,7 +158,7 @@ class excess_deaths:
                     df_year[df_year.month == month].deaths_total.sum()
 
         # Plots data
-        self.start_plot()
+        start_plot()
         # Plot mean deaths
         sns.lineplot(x="month", y="deaths_total", data=self.prev_sum)
         line = plt.gca().lines[-1]
@@ -172,7 +174,7 @@ class excess_deaths:
             plt_args["xlabel"] = "Month"
         if "ylabel" not in plt_args:
             plt_args["ylabel"] = "Total deaths"
-        self.end_plot(**plt_args)
+        end_plot(**plt_args)
 
     def count_excess_deaths(self):
         """[summary]
@@ -234,7 +236,7 @@ class excess_deaths:
             x.append(key[2])
 
         # Plot data
-        self.start_plot()
+        start_plot()
         plt.plot(np.arange(len(x)), y)
         if "title" not in plt_args:
             plt_args["title"] = "Excess deaths"
@@ -243,7 +245,7 @@ class excess_deaths:
         if "ylabel" not in plt_args:
             plt_args["ylabel"] = "Percentage above mean deaths"
         plt.xticks(np.arange(len(x)), x)
-        self.end_plot(**plt_args)
+        end_plot(**plt_args)
 
     def aggregate_and_sort_deaths(self, df_group, mean_deaths=None, deaths_col="deaths_total"):
         if mean_deaths is None:
@@ -284,7 +286,7 @@ class excess_deaths:
         x, y = self.aggregate_and_sort_deaths(self.sel_sum, mean_deaths)
 
         # Plot data
-        self.start_plot()
+        start_plot()
         plt.plot(np.arange(len(x)), y, label="Excess deaths")
 
         # Plots extra data and difference
@@ -315,7 +317,7 @@ class excess_deaths:
         if "xlabel" not in plt_args:
             plt_args["xlabel"] = "Month"
         plt.xticks(np.arange(len(x)), x)
-        self.end_plot(**plt_args)
+        end_plot(**plt_args)
 
     def plot_excess_deaths_comparison(self, compare_df, date_col, deaths_col,
                                        label, **plt_args):
